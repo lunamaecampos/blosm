@@ -47,16 +47,16 @@ class UserManager(models.Manager):
 class AlbumManager(models.Manager):
     def createAlbum(self, postData, id):
         error_msgs = []
-        if len(postData['albumtitle']) < 3:
-            error_msgs.append("Username is too short")
+        if len(postData['albumtitle']) < 1:
+            error_msgs.append("Please enter an album title")
         else:
             print id
-            album = Album.objects.create(albumtitle=postData['albumtitle'], albumreleasedate=postData['albumreleasedate'], user_id = User.objects.get(id=id))
+            album = Album.objects.create(albumtitle=postData['albumtitle'], albumreleasedate=postData['albumreleasedate'], albumgenre=postData['albumgenre'], user_id = User.objects.get(id=id))
             print album.id
             return {'albumid': album.id}
     def deleteAlbum(self, id):
-		Album.objects.get(id=id).delete()
-                print id
+        print "deleting this album: " + id
+        Album.objects.get(id=id).delete()
 class User(models.Model):
     username = models.CharField(max_length=50)
     email = models.CharField(max_length=50)
@@ -67,7 +67,8 @@ class User(models.Model):
 
 class Album(models.Model):
     albumtitle = models.CharField(max_length=255)
-    albumreleasedate = models.DateTimeField()
+    albumreleasedate = models.DateField()
+    albumgenre = models.CharField(max_length=255)
     albumart = models.ImageField(upload_to='album_image', blank=True)
     user_id = models.ForeignKey(User)
     objects = AlbumManager()
