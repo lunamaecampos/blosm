@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>DashBoard</title>
+    {% load static %}
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'blosm_app/css/style.css' %}" media="screen" title="no title" charset="utf-8">
+  </head>
+  <body>
+    <div style="font-size:4em; font-weight:bolder; color:white;">Welcome, {{request.session.theuser}}!</div>
+      <a href="/logout" style="text-decoration:none; color:white;">Logout Heree</a>
+    <div class="tab">
+      <button class="tablinks">Create Your Album</button>
+    </div>
+    <div class="formcontainer" >
+      <form action="/createAlbum/{{request.session.userid}}" method="POST" enctype="multipart/form-data">
+        Album Title: <input type="text" name="albumtitle"><br>
+        Album Release Date: <input type="date" name="albumreleasedate"><br>
+        Album Art: <input type="file" id="id_image" class="" name="albumart">
+        {% csrf_token %}
+        <button>Submit</button>
+      </form>
+    </div>
+    <table>
+      <tr>
+        <th>Album Title</th>
+        <th>Release Date</th>
+        <th>Album Art</th>
+        <th>Delete</th>
+      </tr>
+      {%if album %}
+        {%for a in album %}
+      <form action="/deleteAlbum/{{a.id}}" method="POST">
+        {% csrf_token %}
+        <tr>
+          <td>{{a.albumtitle}}</td>
+          <td>{{a.albumreleasedate}}</td>
+          <td><img src="{{a.albumart.url}}" width="50"></td>
+          <td><button>Delete</button></td>
+        </tr>
+      </form>
+        {% endfor %}
+      {% endif %}
+    </table>
+  </body>
+</html>

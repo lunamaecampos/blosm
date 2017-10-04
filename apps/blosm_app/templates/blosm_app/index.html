@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>b l o s m</title>
+    {% load static %}
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'blosm_app/css/style.css' %}" media="screen" title="no title" charset="utf-8">
+  </head>
+  <body>
+    <div style="font-size:4em; color:white; font-weight:bolder;">. . . blosm.</div>
+    <div class="tab">
+      <button class="tablinks" onclick="openEventName(event, 'Login')" id="defaultOpen">Login</button>
+      <button class="tablinks" onclick="openEventName(event, 'Register')">Register</button>
+    </div>
+    <div id="Login" class="tabcontent">
+      {% for message in messages %}
+        <p>{{message.message}}</p>
+      {% endfor %}
+      <form action="/login" method="POST">
+        Email: <input type="text" name="username"><br>
+        Password: <input type="password" name="password"><br>
+        {% csrf_token %}
+        <button>Login</button>
+      </form>
+    </div>
+    <div id="Register" class="tabcontent">
+      {% for message in messages %}
+        <p>{{message.message}}</p>
+      {% endfor %}
+      <form action="/register" method="POST">
+        Username: <input type="text" name="username"><br>
+        Email: <input type="text" name="email"><br>
+        Password: <input type="password" name="password"><br>
+        Confirm Password: <input type="password" name="confirm"><br>
+        {% csrf_token %}
+        <button>Register</button>
+      </form>
+    </div>
+  </body>
+  <script type="text/javascript" src="{% static 'blosm_app/js/login.js'%}"></script>
+</html>
