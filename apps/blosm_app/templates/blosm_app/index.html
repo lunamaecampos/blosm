@@ -4,66 +4,123 @@
     <meta charset="utf-8">
     <title>b l o s m</title>
     {% load static %}
-    {% load staticfiles %}
     <link rel="stylesheet" href="{% static 'blosm_app/css/style.css' %}" media="screen" title="no title" charset="utf-8">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'blosm_app/css/bootstrap-wrapper.css' %}" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="{% static 'player/css/player.css' %}" media="screen" title="no title" charset="utf-8">
+    {% load staticfiles %}
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://www.w3schools.com/lib/w3.js"></script>
   </head>
   <body>
-    <div style="color:white; font-weight:bolder; width:100%; padding-left:1em; background:rgba(255, 255, 255, .3); position:fixed;">
-      <div style="font-size:4em; padding-left:1em; ext-align:left;">. . . blosm.</div>
-      <div style="font-size:2em; text-align:right; margin-right:1em;">
-        <a href="/loginpage" style="text-decoration:none; color:white;"> Signup</a> | <a href="/loginpage" style="text-decoration:none; color:white;"> Login</a>
+    <div class="bootstrap-wrapper">
+      <div style="color:white; font-weight:bolder; width:100%; padding-left:1em; background:rgba(255, 255, 255, .3); position:fixed; text-shadow: 1px 1px 0 rgba(0,0,0,.75);">
+        <div style="font-size:4em; padding-left:1em; ext-align:left;">. . . blosm.</div>
+        <div style="font-size:2em; text-align:right; margin-right:1em;">
+          <a href="/loginpage" style="text-decoration:none; color:white;"> Signup</a> | <a href="/loginpage" style="text-decoration:none; color:white;"> Login</a>
+        </div>
+      </div>
+      <div id="lander" style="width:100%; height:600px; background: linear-gradient(to bottom right, darksalmon, coral); text-align:center">
+        <div style="color:white; font-size:4em; font-weight:bold; padding-top: 200px; padding-left:10%; padding-right:10%; text-shadow: 1px 1px 0 rgba(0,0,0,.75);">A new way to share your music with your peers and watch your creations blossom.</div>
       </div>
     </div>
-    <div id="lander" style="width:100%; height:600px; background: linear-gradient(to bottom right, darksalmon, coral); text-align:center">
-      <div style="color:white; font-size:4em; font-weight:bold; padding-top: 200px; padding-left:10%; padding-right:10%;">A new way to share your music with your peers and watch your creations blossom.</div>
+      <div id="aboutblosm" style="min-width:100%; height:600px;">
+        <div id="about" style="display:inline-block; width:600px; height:500px; vertical-align:top; padding-left:200px; padding-right:1em;">
+          <div style="display:block; font-size:4em; font-weight:bold; color:black; padding-top:1em;">Why try b l o s m?</div>
+          <div style="display:block; font-size:2em; font-weight:bold; color:black;">Manage Your Music With Ease</div>
+          <div style="display:block; font-size:1em; font-weight:bold; color:black;">It takes less than 60 seconds to sign up for an account and upload your very first demo, song(s), or even entire album.</div>
+          <div style="display:block; font-size:2em; font-weight:bold; color:black;">Receive Feedback And Find Inspiration</div>
+          <div style="display:block; font-size:1em; font-weight:bold; color:black;">Other users can give you feedback on your songs and who knows, you may find some inspiration listening to their songs and providing them feedback.</div>
+          <div style="display:block; font-size:2em; font-weight:bold; color:black;">Collaborate With Your Local Peers</div>
+          <div style="display:block; font-size:1em; font-weight:bold; color:black;">You'll be matched with people with similar music tastes and be able to collaborate over the internet or locally.</div>
+        </div>
+        <div id="try" style=" display:inline-block; width:800px;height:500px; padding-top:80px;">
+          <div class="player-container">
+            <div id="container">
+              <div class="audio-image">
+                <img class="cover" data-color="red"/>
+              </div>
+              <div id="audio-player">
+                <div id="audio-controls">
+                  <div id="audio-info">
+                    <div class="title"></div>
+                    <div class="artist"></div>
+                  </div>
+                   <input id="volume" type="range" min="0" max="10" value="5" step=".1" />
+                   <br>
+                   <div id="buttons">
+                   <span>
+                    <img src="{% static 'player/images/prev.png'%}" style="width:20px; height:20px;" id="prev">
+                    <img src="{% static 'player/images/play.png'%}" style="padding-left:5px; padding-right:5px;width:18px; height:18px;" id="play">
+                    <img src="{% static 'player/images/pause.png'%}" style="padding-left:5px; padding-right:5px; width:18px; height:18px;" id="pause">
+                    <img src="{% static 'player/images/next.png'%}" style="width:20px; height:20px;" id="next">
+                    </span>
+                   </div>
+                   <div class="clearfix"></div>
+                   <div id="tracker">
+                    <div id="progressBar">
+                      <span id="progress"></span>
+                    </div>
+                    <span id="duration"></span>
+                   </div>
+                 </div>
+                 <div class="clearfix"></div>
+                 <div id="audio-playlist">
+                   <ul id="playlist" class="hidden">
+                    <li song="{% static 'player/music/songs/JustYouWait.mp3'%}"  cover="{% static 'player/music/art/albumart.jpg'%}" artist="Luna Campos" trackName="Just You Wait"><div class="trackNumber">1 </div><div class="trackName">Just You Wait</div></li>
+                    <li song="{% static 'player/music/songs/TheresAlwaysSomeoneThatWantsYouMore3.mp3'%}" cover="{% static 'player/music/art/albumart.jpg'%}" artist="Luna Campos" trackName="Someone Who Always Wants You More"> <div class="trackNumber">2 </div><div class="trackName">Someone Who Always Wants You More</div></li>
+                    <li song="{% static 'player/music/songs/Usually.mp3'%}" cover="{% static 'player/music/art/albumart.jpg'%}" artist="Luna Campos" trackName="Usually"><div class="trackNumber"> 3 </div><div class="trackName">Usually</div></li>
+                    <li song="{% static 'player/music/songs/OutOfThisSpace .mp3'%}" cover="{% static 'player/music/art/albumart.jpg'%}" artist="Luna Campos" trackName="Out Of This Space"><div class="trackNumber"> 4 </div><div class="trackName">Out Of This Space</div></li>
+                    <li song="{% static 'player/music/songs/ProdigyOdyssey.mp3'%}" cover="{% static 'player/music/art/albumart.jpg'%}" artist="Luna Campos" trackName="Prodigy Oddysey"><div class="trackNumber"> 5 </div><div class="trackName">Prodigy Odyssey</div></li>
+                    <li song="{% static 'player/music/songs/TheMilkyWay.mp3'%}s" cover="{% static 'player/music/art/albumart.jpg'%}" artist="Luna Campos" trackName="I Just Want To Be A Star"><div class="trackNumber"> 6 </div><div class="trackName">I Just Want To Be A Star</div></li>
+                  </ul>
+                </div>
+              </div>
+          </div>
+        </div>
+        </div>
+
+
+      </div>
+      <div id="wrapper" style="padding-top:2em;">
+        <div class="tab">
+          <button class="tablinks" onclick="openEventName(event, 'Login')" id="defaultOpen">Login</button>
+          <button class="tablinks" onclick="openEventName(event, 'Register')">Register</button>
+        </div>
+        <div id="Login" class="tabcontent">
+          {% for message in messages %}
+            <p>{{message.message}}</p>
+          {% endfor %}
+          <form action="/login" method="POST">
+            Email: <input type="text" name="username"><br>
+            Password: <input type="password" name="password"><br>
+            {% csrf_token %}
+            <button>Login</button>
+          </form>
+        </div>
+        <div id="Register" class="tabcontent">
+          {% for message in messages %}
+            <p>{{message.message}}</p>
+          {% endfor %}
+          <form action="/register" method="POST">
+            Username: <input type="text" name="username"><br>
+            Email: <input type="text" name="email"><br>
+            Password: <input type="password" name="password"><br>
+            Confirm Password: <input type="password" name="confirm"><br>
+            {% csrf_token %}
+            <button>Register</button>
+          </form>
+        </div>
+      </div>
     </div>
-    <div id="aboutblosm" style="width:100%; height:600px; background-color:white;">
-      <div id="about" style="display:inline-block; width:50%; height:500px; vertical-align:top; padding-left:200px; padding-right:1em;">
-        <div style="display:block; font-size:4em; font-weight:bold; color:black; padding-top:1em;">Why try b l o s m?</div>
-        <div style="display:block; font-size:2em; font-weight:bold; color:black;">Manage Your Music With Ease</div>
-        <div style="display:block; font-size:1em; font-weight:bold; color:black;">It takes less than 60 seconds to sign up for an account and upload your very first demo, song(s), or even entire album.</div>
-        <div style="display:block; font-size:2em; font-weight:bold; color:black;">Recieve Feedback And Find Inspiration</div>
-        <div style="display:block; font-size:1em; font-weight:bold; color:black;">Other users can give you feedback on your songs and who knows, you may find some inspiration listening to their songs and providing them feedback.</div>
-        <div style="display:block; font-size:2em; font-weight:bold; color:black;">Collaborate With Your Local Peers</div>
-        <div style="display:block; font-size:1em; font-weight:bold; color:black;">You'll be matched with people with similar music tastes and be able to collaborate over the internet or locally.</div>
-      </div>
-      <div id="try" style=" display:inline-block; width:49%;height:500px; background-color:black;"></div>
-    </div>
-    <div id="wrapper" style="padding-top:1em;">
-      <div class="tab">
-        <button class="tablinks" onclick="openEventName(event, 'Login')" id="defaultOpen">Login</button>
-        <button class="tablinks" onclick="openEventName(event, 'Register')">Register</button>
-      </div>
-      <div id="Login" class="tabcontent">
-        {% for message in messages %}
-          <p>{{message.message}}</p>
-        {% endfor %}
-        <form action="/login" method="POST">
-          Email: <input type="text" name="username"><br>
-          Password: <input type="password" name="password"><br>
-          {% csrf_token %}
-          <button>Login</button>
-        </form>
-      </div>
-      <div id="Register" class="tabcontent">
-        {% for message in messages %}
-          <p>{{message.message}}</p>
-        {% endfor %}
-        <form action="/register" method="POST">
-          Username: <input type="text" name="username"><br>
-          Email: <input type="text" name="email"><br>
-          Password: <input type="password" name="password"><br>
-          Confirm Password: <input type="password" name="confirm"><br>
-          {% csrf_token %}
-          <button>Register</button>
-        </form>
-      </div>
-    </div>
+
+
+
   </body>
+
   <script type="text/javascript" src="{% static 'blosm_app/js/login.js'%}"></script>
   <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="{% static 'player/js/playerjquerylib.js'%}"></script>
+  <script type="text/javascript" src="{% static 'player/js/music.js'%}"></script>
 </html>
